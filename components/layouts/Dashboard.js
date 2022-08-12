@@ -33,7 +33,7 @@ export default function Dashboard({ children }) {
 
     return (
         <div className="flex flex-col space-y-5">
-            <div className="flex flex-row items-center place-content-between border-b p-5">
+            <div className="flex flex-row items-center place-content-between p-5">
                 <div className="text-5xl font-bold"><Link href="/dashboard">&#9660;</Link></div>
                 <div className="flex flex-row items-center gap-3">
                     <div>
