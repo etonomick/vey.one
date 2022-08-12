@@ -31,11 +31,19 @@ export default function Dashboard({ children }) {
     }
 
     return (
-        <div>
-            <Button onClick={() => {
-                supabase.auth.signOut()
-            }}>Sign Out</Button>
-            {children}
+        <div className="flex flex-col space-y-5">
+            <div className="flex flex-row items-center place-content-between border-b p-5">
+                <div className="text-5xl font-bold">&#9660;</div>
+                <div>
+                    <Button onClick={() => {
+                        supabase.auth.signOut()
+                    }}>Sign Out</Button>
+                </div>
+            </div>
+            <div className="container mx-auto px-5 sm:px-0">
+                {children}
+            </div>
         </div>
     )
+
 }
