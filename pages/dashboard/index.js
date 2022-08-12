@@ -1,5 +1,6 @@
 import useSWR from "swr"
 import Button from "../../components/ui/Button"
+import Heading from "../../components/ui/Heading"
 import Input from "../../components/ui/Input"
 import ProjectCard from "../../components/ui/ProjectCard"
 import fetcher from "../../utils/fetcher"
@@ -24,13 +25,13 @@ export default function Projects() {
 
     return (
         <div className="flex flex-col gap-5">
-            <div className="text-5xl">Projects</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-            {data && data.data.map(project => (
-                <ProjectCard project={project} />
-            ))}
-            {/* <ProjectCard /> */}
-            {/* <div className="p-5 border border-dashed flex items-start flex-col gap-3">
+            <Heading>Projects</Heading>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+                {data && data.data.map(project => (
+                    <ProjectCard project={project} />
+                ))}
+                {/* <ProjectCard /> */}
+                {/* <div className="p-5 border border-dashed flex items-start flex-col gap-3">
                 <Input placeholder="Project Name" />
                 <Input placeholder="Short description" sm />
                 <Button onClick={() => {
@@ -47,7 +48,7 @@ export default function Projects() {
                     }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
                 }}>Create</Button>
             </div> */}
-        </div>
+            </div>
         </div>
     )
 }
