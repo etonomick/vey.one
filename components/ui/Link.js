@@ -4,7 +4,7 @@ export default function Link({ href, children }) {
     return (
         <NextLink href={href}>
             <a>
-                <div className="border-b-2 border-black inline-block">{children}</div>
+                <div className="cursor-pointer">{children}</div>
             </a>
         </NextLink>
     )
