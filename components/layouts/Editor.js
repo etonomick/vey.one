@@ -4,7 +4,9 @@ import useSWR, { mutate } from "swr";
 import fetcher from "../../utils/fetcher";
 import { supabase } from "../../utils/supabaseClient";
 import withToken from "../../utils/withToken";
+import Button from "../ui/Button";
 import Input from "../ui/Input";
+import Heading from "../ui/Heading";
 
 export default function Editor({ projectId }) {
 
@@ -48,24 +50,34 @@ export default function Editor({ projectId }) {
         })
     }
 
-    const [activeSlideId, setActiveSlideId] = useState(null)
+    const [activeSlide, setActiveSlide] = useState(null)
 
     return (
-        <div className="w-full flex gap-8">
-            <div className="w-64">
+        <div className="w-full flex flex-col md:flex-row gap-8">
+            <div className="w-full md:w-64">
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
                         {(provided) => (
-                            <div className="flex flex-col gap-3" {...provided.droppableProps} ref={provided.innerRef}>
+                            <div className="flex flex-row md:flex-col gap-3 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
                                 {slides.map((slide, index) => {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className="flex items-center gap-3 w-full">{index + 1}<div className={`cursor-pointer p-3 border ${activeSlideId === slide.id && "border-green-400"} rounded w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
-                                                    setActiveSlideId(slide.id)
+                                                <div className="flex items-center gap-3 w-full">{index + 1}<div className={`cursor-pointer p-3 border ${activeSlide && activeSlide.id === slide.id && "border-green-400"} rounded w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                    setActiveSlide(slide)
                                                 }}>
                                                     <div>{slide.title}</div>
-                                                    <div>{slide.position}</div>
+                                                    <div className="text-xs">{slide.id}</div>
+                                                    {/* <Button onClick={() => {
+                                                        fetch(`/api/slides/${slide.id}`, {
+                                                            method: "DELETE",
+                                                            headers: {
+                                                                "Authorization": supabase.auth.session().access_token,
+                                                            }
+                                                        }).then(res => res.json()).then(() => {
+                                                            mutate(withToken(`/api/projects/${projectId}/slides`))
+                                                        })
+                                                    }}>Delete</Button> */}
                                                     </div>
                                                 </div>
                                             )}
@@ -77,7 +89,6 @@ export default function Editor({ projectId }) {
                     </Droppable>
                 </DragDropContext>
                 <div>
-                    {newSlideTitle}
                     <input value={newSlideTitle} onChange={e => {
                         setNewSlideTitle(e.target.value)
                     }} type="text" placeholder="Type question" onKeyDown={e => {
@@ -95,14 +106,14 @@ export default function Editor({ projectId }) {
                                 })
                             }).then(res => res.json()).then(data => {
                                 setNewSlideTitle("")
-                                mutate(withToken(`/api/slides/${projectId}`))
+                                mutate(withToken(`/api/projects/${projectId}/slides`))
                             })
                         }
                     }} />
                 </div>
             </div>
             <div className="flex-1">
-                {activeSlideId ? activeSlideId : "Select slide from left"}
+                {activeSlide ? <Heading>{activeSlide.title}</Heading> : "Select slide from left"}
             </div>
         </div>
     )
