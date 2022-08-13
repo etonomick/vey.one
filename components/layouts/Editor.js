@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import useSWR, { mutate } from "swr";
 import fetcher from "../../utils/fetcher";
@@ -10,32 +10,13 @@ export default function Editor({ projectId }) {
 
     const { data: s, error } = useSWR(withToken(`/api/slides/${projectId}`), fetcher)
 
-    const [slides, setSlides] = useState([
-        {
-            id: "sdifjieiufwhoiwe",
-            poition: 0,
-            title: "Test title 1",
-            text: "Some text"
-        },
-        {
-            id: "ewirewiorpiewproew",
-            poition: 3,
-            title: "Test title 2",
-            text: "Some text"
-        },
-        {
-            id: "ncxvbncmvbcxnmv",
-            poition: 1,
-            title: "Test title 3",
-            text: "Some text"
-        },
-        {
-            id: "qazqazqaz",
-            poition: 8,
-            title: "Test title 4",
-            text: "Some text"
-        }
-    ])
+    const [slides, setSlides] = useState([])
+
+    useEffect(() => {
+        if (s) setSlides(s.data.map((slide, index) => {
+            return {...slide, ["position"]: index}
+        }))
+    }, [s])
 
     const [newSlideTitle, setNewSlideTitle] = useState("")
 
@@ -45,6 +26,24 @@ export default function Editor({ projectId }) {
         const [reordered] = updated.splice(res.source.index, 1)
         updated.splice(res.destination.index, 0, reordered)
         setSlides(updated)
+        updateSlides(updated)
+    }
+
+    function updateSlides (slides) {
+        const update = slides.map((slide, index) => {
+            return {
+                id: slide.id,
+                position: index
+            }
+        })
+        fetch("/api/slides/update", {
+            method: "POST",
+            headers: {
+                "Authorization": supabase.auth.session().access_token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(update)
+        }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
     }
 
     return (
@@ -58,7 +57,11 @@ export default function Editor({ projectId }) {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className="flex items-center gap-3 w-full">{index}<div className="cursor-pointer p-3 border rounded w-full" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>{slide.title}</div></div>
+                                                <div className="flex items-center gap-3 w-full">{index + 1}<div className="cursor-pointer p-3 border rounded w-full" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                    <div>{slide.title}</div>
+                                                    <div>{slide.position}</div>
+                                                    </div>
+                                                </div>
                                             )}
                                         </Draggable>
                                     )
@@ -82,7 +85,7 @@ export default function Editor({ projectId }) {
                                 body: JSON.stringify({
                                     project_id: projectId,
                                     title: newSlideTitle,
-                                    position: 0
+                                    position: slides.length
                                 })
                             }).then(res => res.json()).then(data => {
                                 setNewSlideTitle("")
