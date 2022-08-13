@@ -22,12 +22,18 @@ export default function Project() {
         )
     }
 
+    if (!data) {
+        return (
+            <div>Loading...</div>
+        )
+    }
+
     return (
         <div className="flex flex-col gap-5">
-            <Heading>{data.title}</Heading>
+            <Heading>{data.title ?? "Untitled"}</Heading>
             <Text>{data.description}</Text>
-            {data && JSON.stringify(data)}
-            <Editor />
+            {/* {data && JSON.stringify(data)} */}
+            <Editor projectId={id} />
         </div>
     )
 }
