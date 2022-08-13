@@ -8,7 +8,7 @@ import Input from "../ui/Input";
 
 export default function Editor({ projectId }) {
 
-    const { data: s, error } = useSWR(withToken(`/api/slides/${projectId}`), fetcher)
+    const { data: s, error } = useSWR(withToken(`/api/projects/${projectId}/slides`), fetcher)
 
     const [slides, setSlides] = useState([])
 
