@@ -43,8 +43,12 @@ export default function Editor({ projectId }) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(update)
-        }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
+        }).then(res => res.json()).then(data => {
+            // make toast like message
+        })
     }
+
+    const [activeSlideId, setActiveSlideId] = useState(null)
 
     return (
         <div className="w-full flex gap-8">
@@ -57,7 +61,9 @@ export default function Editor({ projectId }) {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className="flex items-center gap-3 w-full">{index + 1}<div className="cursor-pointer p-3 border rounded w-full" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                <div className="flex items-center gap-3 w-full">{index + 1}<div className={`cursor-pointer p-3 border ${activeSlideId === slide.id && "border-green-400"} rounded w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                    setActiveSlideId(slide.id)
+                                                }}>
                                                     <div>{slide.title}</div>
                                                     <div>{slide.position}</div>
                                                     </div>
@@ -96,7 +102,7 @@ export default function Editor({ projectId }) {
                 </div>
             </div>
             <div className="flex-1">
-                <pre className="whitespace-pre-wrap">{s && JSON.stringify(s, null, 2)}</pre>
+                {activeSlideId ? activeSlideId : "Select slide from left"}
             </div>
         </div>
     )
