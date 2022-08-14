@@ -8,6 +8,7 @@ import Button from "../../components/ui/Button";
 import useSWR from "swr";
 import withToken from "../../utils/withToken"
 import fetcher from "../../utils/fetcher"
+import ProjectPreferences from "../../components/layouts/ProjectPreferences";
 
 export default function Project() {
 
@@ -28,12 +29,38 @@ export default function Project() {
         )
     }
 
+    const [tabs] = useState([
+        {
+            title: "Editor",
+            view: <Editor projectId={id} />
+        },
+        {
+            title: "Preferences",
+            view: <ProjectPreferences id={id} />
+        }
+    ])
+
     return (
         <div className="flex flex-col gap-5">
+
             <Heading>{data.title ?? "Untitled"}</Heading>
             <Text>{data.description}</Text>
-            {/* {data && JSON.stringify(data)} */}
-            <Editor projectId={id} />
+
+            <Tab.Group>
+                <Tab.List className="flex space-x-5">
+                    {tabs.map(({title}) => (
+                        <Tab key={title}>{title}</Tab>
+                    ))}
+                </Tab.List>
+                <Tab.Panels>
+                    {tabs.map(({view}) => (
+                        <Tab.Panel>
+                            {view}
+                        </Tab.Panel>
+                    ))}
+                </Tab.Panels>
+            </Tab.Group>
+
         </div>
     )
 }
