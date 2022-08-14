@@ -55,7 +55,7 @@ export default function Editor({ projectId }) {
 
     return (
         <div className="w-full flex flex-col md:flex-row gap-8">
-            <div className="w-full md:w-64">
+            <div className="w-full md:w-64 flex flex-col gap-8">
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
                         {(provided) => (
@@ -67,16 +67,29 @@ export default function Editor({ projectId }) {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className="relative snap-center flex flex-col md:flex-row gap-2"><div className={`cursor-pointer h-full w-52 md:w-full ${active && "ring ring-offset-2 ring-black ring-inset"} w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                <div className={`snap-center ${active ? "bg-purple-500" : "bg-purple-100"} p-5 rounded-3xl flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
-                                                    <div>{slide.title}</div>
+                                                    <div className="text-xl">{index + 1} {slide.title}</div>
                                                     <div className="text-xs">{slide.id}</div>
                                                 </div>
                                                     <div className={`flex flex-row md:flex-col items-center place-content-between md:place-content-start gap-2`}>
-                                                        <div className="absolute -top-2 -left-2 bg-red-500 rounded-full w-5 h-5 flex items-center justify-center text-xs">{index + 1}</div>
-                                                        <div><Button><MdOutlineContentCopy /></Button></div>
-                                                        <div><Button onClick={() => {
+                                                        {/* <div className="text-xs">{index + 1}</div> */}
+                                                        <div><Button ghost onClick={() => {
+                                                            fetch("/api/slides/create", {
+                                                                method: "POST",
+                                                                headers: {
+                                                                    "Authorization": supabase.auth.session().access_token,
+                                                                    "Content-Type": "application/json"
+                                                                },
+                                                                body: JSON.stringify({
+                                                                    project_id: projectId,
+                                                                    title: slide.title,
+                                                                    position: slides.length + 1
+                                                                })
+                                                            }).then(_ => mutate(withToken(`/api/projects/${projectId}/slides`)))
+                                                        }}><MdOutlineContentCopy /></Button></div>
+                                                        <div><Button ghost onClick={() => {
                                                             fetch(`/api/slides/${slide.id}`, {
                                                                 method: "DELETE",
                                                                 headers: {
