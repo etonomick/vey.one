@@ -10,6 +10,7 @@ import withToken from "../../utils/withToken"
 import fetcher from "../../utils/fetcher"
 import ProjectPreferences from "../../components/layouts/ProjectPreferences";
 import Integrations from "../../components/layouts/Integrations";
+import Events from "../../components/layouts/Events";
 
 export default function Project() {
 
@@ -40,6 +41,10 @@ export default function Project() {
             view: <ProjectPreferences id={id} />
         },
         {
+            title: "Events",
+            view: <Events />
+        },
+        {
             title: "Integrations",
             view: <Integrations id={id} />
         }
@@ -54,7 +59,7 @@ export default function Project() {
             <Tab.Group>
                 <Tab.List className="flex space-x-5">
                     {tabs.map(({title}) => (
-                        <Tab key={title}>{title}</Tab>
+                        <Tab key={title} className={({ selected }) => `py-3 px-5 rounded-full ${selected ? "bg-black text-white" : "bg-gray-100"}`}>{title}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>
