@@ -58,17 +58,21 @@ export default function Editor({ projectId }) {
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
                         {(provided) => (
-                            <div className="flex flex-row md:flex-col gap-3 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
+                            <div className="flex flex-row md:flex-col gap-5 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
                                 {slides.map((slide, index) => {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className="flex items-center gap-3">{index + 1}<div className={`cursor-pointer p-3 border h-full w-52 md:w-full ${activeSlide && activeSlide.id === slide.id && "border-green-400"} rounded w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                <div className="flex flex-col gap-2 bg-white"><div className={`cursor-pointer p-3 border h-full w-52 md:w-full ${activeSlide && activeSlide.id === slide.id && "border-black"} rounded-2xl w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div>{slide.title}</div>
                                                     <div className="text-xs">{slide.id}</div>
-                                                    {/* <Button onClick={() => {
+                                                    </div>
+                                                    <div className="flex flex-row items-center place-content-between">
+                                                        <div>{index + 1}</div>
+                                                        <div>Duplicate</div>
+                                                        <div><Button onClick={() => {
                                                         fetch(`/api/slides/${slide.id}`, {
                                                             method: "DELETE",
                                                             headers: {
@@ -77,7 +81,7 @@ export default function Editor({ projectId }) {
                                                         }).then(res => res.json()).then(() => {
                                                             mutate(withToken(`/api/projects/${projectId}/slides`))
                                                         })
-                                                    }}>Delete</Button> */}
+                                                    }}>Delete</Button></div>
                                                     </div>
                                                 </div>
                                             )}
@@ -113,7 +117,9 @@ export default function Editor({ projectId }) {
                 </div>
             </div>
             <div className="flex-1">
-                {activeSlide ? <Heading>{activeSlide.title}</Heading> : "Select slide from left"}
+                <div className="w-full h-80 bg-orange-100 rounded-2xl">
+                    {activeSlide ? <Heading>{activeSlide.title}</Heading> : "Select slide from left"}
+                </div>
             </div>
         </div>
     )
