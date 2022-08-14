@@ -7,6 +7,7 @@ import withToken from "../../utils/withToken";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Heading from "../ui/Heading";
+import { MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md"
 
 export default function Editor({ projectId }) {
 
@@ -16,7 +17,7 @@ export default function Editor({ projectId }) {
 
     useEffect(() => {
         if (s) setSlides(s.data.map((slide, index) => {
-            return {...slide, ["position"]: index}
+            return { ...slide, ["position"]: index }
         }))
     }, [s])
 
@@ -31,7 +32,7 @@ export default function Editor({ projectId }) {
         updateSlides(updated)
     }
 
-    function updateSlides (slides) {
+    function updateSlides(slides) {
         const update = slides.map((slide, index) => {
             return {
                 id: slide.id,
@@ -60,28 +61,31 @@ export default function Editor({ projectId }) {
                         {(provided) => (
                             <div className="flex flex-row snap-mandatory snap-x md:flex-col gap-5 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
                                 {slides.map((slide, index) => {
+
+                                    const active = activeSlide && activeSlide.id === slide.id
+
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className="snap-center flex flex-col gap-2 bg-white"><div className={`cursor-pointer p-3 border h-full w-52 md:w-full ${activeSlide && activeSlide.id === slide.id && "border-black"} rounded-2xl w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                <div className="relative snap-center flex flex-col md:flex-row gap-2"><div className={`cursor-pointer h-full w-52 md:w-full ${active && "ring ring-offset-2 ring-black ring-inset"} w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div>{slide.title}</div>
                                                     <div className="text-xs">{slide.id}</div>
-                                                    </div>
-                                                    <div className="flex flex-row items-center place-content-between">
-                                                        <div>{index + 1}</div>
-                                                        <div>Duplicate</div>
+                                                </div>
+                                                    <div className={`flex flex-row md:flex-col items-center place-content-between md:place-content-start gap-2`}>
+                                                        <div className="absolute -top-2 -left-2 bg-red-500 rounded-full w-5 h-5 flex items-center justify-center text-xs">{index + 1}</div>
+                                                        <div><Button><MdOutlineContentCopy /></Button></div>
                                                         <div><Button onClick={() => {
-                                                        fetch(`/api/slides/${slide.id}`, {
-                                                            method: "DELETE",
-                                                            headers: {
-                                                                "Authorization": supabase.auth.session().access_token,
-                                                            }
-                                                        }).then(res => res.json()).then(() => {
-                                                            mutate(withToken(`/api/projects/${projectId}/slides`))
-                                                        })
-                                                    }}>Delete</Button></div>
+                                                            fetch(`/api/slides/${slide.id}`, {
+                                                                method: "DELETE",
+                                                                headers: {
+                                                                    "Authorization": supabase.auth.session().access_token,
+                                                                }
+                                                            }).then(res => res.json()).then(() => {
+                                                                mutate(withToken(`/api/projects/${projectId}/slides`))
+                                                            })
+                                                        }}><MdDeleteOutline /></Button></div>
                                                     </div>
                                                 </div>
                                             )}
@@ -117,8 +121,11 @@ export default function Editor({ projectId }) {
                 </div>
             </div>
             <div className="flex-1">
-                <div className="w-full h-80 bg-orange-100 rounded-2xl">
+                <div className="w-full h-80 rounded-2xl">
                     {activeSlide ? <Heading>{activeSlide.title}</Heading> : "Select slide from left"}
+                    <div>
+
+                    </div>
                 </div>
             </div>
         </div>
