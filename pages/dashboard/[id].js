@@ -1,6 +1,6 @@
 import { Tab } from "@headlessui/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Editor from "../../components/layouts/Editor";
 import Heading from "../../components/ui/Heading";
 import Text from "../../components/ui/Text";
@@ -9,6 +9,7 @@ import useSWR from "swr";
 import withToken from "../../utils/withToken"
 import fetcher from "../../utils/fetcher"
 import ProjectPreferences from "../../components/layouts/ProjectPreferences";
+import Integrations from "../../components/layouts/Integrations";
 
 export default function Project() {
 
@@ -29,7 +30,7 @@ export default function Project() {
         )
     }
 
-    const [tabs] = useState([
+    const tabs = [
         {
             title: "Editor",
             view: <Editor projectId={id} />
@@ -37,8 +38,12 @@ export default function Project() {
         {
             title: "Preferences",
             view: <ProjectPreferences id={id} />
+        },
+        {
+            title: "Integrations",
+            view: <Integrations id={id} />
         }
-    ])
+    ]
 
     return (
         <div className="flex flex-col gap-5">
@@ -53,8 +58,8 @@ export default function Project() {
                     ))}
                 </Tab.List>
                 <Tab.Panels>
-                    {tabs.map(({view}) => (
-                        <Tab.Panel>
+                    {tabs.map(({view}, idx) => (
+                        <Tab.Panel key={idx}>
                             {view}
                         </Tab.Panel>
                     ))}
