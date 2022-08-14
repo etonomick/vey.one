@@ -58,12 +58,12 @@ export default function Editor({ projectId }) {
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
                         {(provided) => (
-                            <div className="flex flex-row md:flex-col gap-5 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
+                            <div className="flex flex-row snap-mandatory snap-x md:flex-col gap-5 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
                                 {slides.map((slide, index) => {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className="flex flex-col gap-2 bg-white"><div className={`cursor-pointer p-3 border h-full w-52 md:w-full ${activeSlide && activeSlide.id === slide.id && "border-black"} rounded-2xl w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                <div className="snap-center flex flex-col gap-2 bg-white"><div className={`cursor-pointer p-3 border h-full w-52 md:w-full ${activeSlide && activeSlide.id === slide.id && "border-black"} rounded-2xl w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div>{slide.title}</div>
