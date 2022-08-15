@@ -56,7 +56,7 @@ export default function Editor({ projectId }) {
 
     return (
         <div className="w-full flex flex-col md:flex-row gap-8">
-            <div className="w-full md:w-64 flex flex-col gap-5 bg-white p-5 rounded-3xl">
+            <div className="w-full md:w-64 flex flex-col gap-5">
                 {slides.length === 0 && <>You have no slides</>}
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
@@ -69,7 +69,7 @@ export default function Editor({ projectId }) {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className={`snap-center ${active ? "bg-gray-100" : "bg-transparent"} p-5 rounded-3xl flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                <div className={`snap-center transition-all duration-250 ${active ? "bg-gray-50" : "bg-transparent hover:bg-white/30"} p-5 rounded flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div className="text-xl">{index + 1} {slide.title}</div>

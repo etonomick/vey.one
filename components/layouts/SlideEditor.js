@@ -39,7 +39,7 @@ export default function SlideEditor({ slide }) {
     }
 
     return (
-        <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl">
+        <div className="flex flex-col gap-5 bg-white p-8 rounded border border-gray-200">
             <div className={`flex flex-col gap-5`}>
                 {/* <Editable>{slide.title}</Editable> */}
                 <div>{title && title}</div>

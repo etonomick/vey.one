@@ -34,7 +34,7 @@ export default function Dashboard({ children }) {
 
     return (
         <div className="flex flex-col space-y-5 pb-5">
-            <div className="flex flex-row items-center place-content-between p-5">
+            <div className="flex flex-row items-center place-content-between p-5 border-b border-b-gray-200">
                 <div><Link href="/dashboard"><Vey /></Link></div>
                 <div className="flex flex-row items-center gap-3">
                     <div>
@@ -45,7 +45,7 @@ export default function Dashboard({ children }) {
                     }}>Sign Out</Button>
                 </div>
             </div>
-            <div className="container mx-auto">
+            <div className="container mx-auto pt-5 px-5">
                 {children}
             </div>
         </div>

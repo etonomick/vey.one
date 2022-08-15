@@ -58,9 +58,9 @@ export default function Project() {
             <Text>{data.description}</Text>
 
             <Tab.Group>
-                <Tab.List className="flex space-x-1 overflow-x-scroll">
+                <Tab.List className="flex space-x-5 overflow-x-scroll">
                     {tabs.map(({title}) => (
-                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 rounded-full ${selected ? "bg-green-300" : "bg-transparent"} appearance-none focus:outline-none`}><MdOutlineFolder /> {title}</Tab>
+                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 rounded ${selected ? "bg-green-300" : "bg-transparent hover:bg-white/30"} appearance-none focus:outline-none`}><MdOutlineFolder /> {title}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>
