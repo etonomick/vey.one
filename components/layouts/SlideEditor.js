@@ -9,6 +9,10 @@ import Heading from "../ui/Heading"
 
 export default function SlideEditor({ slide }) {
 
+    if (!slide) {
+        return <>empty state</>
+    }
+
     const { id } = slide
 
     const { data, error } = useSWR(withToken(`/api/slides/${id}`), fetcher)
@@ -36,8 +40,14 @@ export default function SlideEditor({ slide }) {
 
     return (
         <div className="flex flex-col gap-5">
-            <div>
-                <Editable>{data.data.title}</Editable>
+            <div className={`flex flex-col gap-5`}>
+                {/* <Editable>{slide.title}</Editable> */}
+                <div>{title && title}</div>
+                <div contentEditable onInput={(e) => {
+                    setTitle(e.currentTarget.textContent)
+                }} onBlur={() => {
+                    
+                }}>{data.data.title}</div>
                 {data.data.answers.map(answer => (
                     <div>{answer.title}</div>
                 ))}
@@ -66,7 +76,6 @@ export default function SlideEditor({ slide }) {
                 <div>Settings</div>
             </div>
             <div className="bg-gray-100 rounded-2xl p-5">
-
                 <pre className="text-xs">{JSON.stringify(data, null, 2)}</pre>
             </div>
 

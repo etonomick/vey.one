@@ -57,6 +57,7 @@ export default function Editor({ projectId }) {
     return (
         <div className="w-full flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-64 flex flex-col gap-5">
+                {slides.length === 0 && <>You have no slides</>}
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
                         {(provided) => (
@@ -139,7 +140,8 @@ export default function Editor({ projectId }) {
                 <div className="w-full h-80 rounded-2xl">
                     {!activeSlide && "Select slide from left"}
                     <div>
-                        {activeSlide && <SlideEditor slide={activeSlide} />}
+                        {activeSlide && <SlideEditor slide={activeSlide && activeSlide} />}
+                        {/* {activeSlide && <SlideEditor slide={activeSlide} />} */}
                     </div>
                 </div>
             </div>

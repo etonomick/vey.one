@@ -8,13 +8,13 @@ export default function Editable({ children }) {
 
     return (
         <>
-        {update}
-        <div contentEditable onInput={(e) => {
-            setUpdate(e.currentTarget.textContent)
-        }} className="text-4xl font-bold appearance-none focus:outline-none">{children}</div>
-        {update && <Button onClick={() => {
-            
-        }}><MdOutlineApproval /></Button>}
+            {update && update}
+            <div contentEditable onInput={(e) => {
+                setUpdate(e.currentTarget.textContent)
+            }} className="text-4xl font-bold appearance-none focus:outline-none">{children}</div>
+            {update && <Button onClick={() => {
+
+            }}><MdOutlineApproval /></Button>}
         </>
     )
 }

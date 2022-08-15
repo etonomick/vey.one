@@ -21,6 +21,14 @@ async function handler(req, res) {
             error
         })
     }
+
+    if (req.method === "UPDATE") {
+        const { data, error } = await supabase.from("slides").upsert(req.body).eq("id", id)
+        res.status(200).json({
+            data,
+            error
+        })
+    }
 }
 
 export default withAuth(handler)
