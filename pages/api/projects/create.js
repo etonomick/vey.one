@@ -10,6 +10,11 @@ const handler = async (req, res) => {
         title,
         description
     })
+
+    res.status(200).json({
+        data,
+        error
+    })
     
 }
 

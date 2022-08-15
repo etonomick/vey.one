@@ -69,7 +69,7 @@ export default function Editor({ projectId }) {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className={`snap-center ${active ? "bg-green-300" : "bg-transparent"} p-5 rounded-3xl flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                <div className={`snap-center ${active ? "bg-gray-100" : "bg-transparent"} p-5 rounded-3xl flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div className="text-xl">{index + 1} {slide.title}</div>

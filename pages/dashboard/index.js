@@ -31,7 +31,7 @@ export default function Projects() {
                     <ProjectCard project={project} />
                 ))}
                 {/* <ProjectCard /> */}
-                {/* <div className="p-5 border border-dashed flex items-start flex-col gap-3">
+                <div className="p-5 border border-dashed flex items-start flex-col gap-3">
                 <Input placeholder="Project Name" />
                 <Input placeholder="Short description" sm />
                 <Button onClick={() => {
@@ -47,7 +47,7 @@ export default function Projects() {
                         })
                     }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
                 }}>Create</Button>
-            </div> */}
+            </div>
             </div>
         </div>
     )
