@@ -18,7 +18,7 @@ export default function SlideEditor({ slide }) {
     const { data, error } = useSWR(withToken(`/api/slides/${id}`), fetcher)
     const [newAnswerTitle, setNewAnswerTitle] = useState("")
 
-    const [title, setTitle] = useState("")
+    const [title, setTitle] = useState(slide.title)
 
     const types = [
         "Single choice",
@@ -32,11 +32,11 @@ export default function SlideEditor({ slide }) {
         )
     }
 
-    if (!data) {
-        return (
-            <div>Loading slide {slide.id}...</div>
-        )
-    }
+    // if (!data) {
+    //     return (
+    //         <div>Loading slide {slide.id}...</div>
+    //     )
+    // }
 
     return (
         <div className="flex flex-col gap-5">
