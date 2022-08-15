@@ -1,3 +1,4 @@
+import { RadioGroup } from "@headlessui/react"
 import { useState } from "react"
 import useSWR, { mutate } from "swr"
 import fetcher from "../../utils/fetcher"
@@ -13,9 +14,9 @@ export default function SlideEditor({ slide }) {
     const [newAnswerTitle, setNewAnswerTitle] = useState("")
 
     const types = [
-        "Text Input",
-        "Poll",
-        "Multiple choice"
+        "Single choice",
+        "Multiple choice",
+        "Short answer"
     ]
 
     if (error) {
@@ -60,9 +61,14 @@ export default function SlideEditor({ slide }) {
             </div>
             <div>
                 <div>Settings</div>
-                {types.map(type => (
-                    <div>{type}</div>
-                ))}
+                <RadioGroup>
+                    <RadioGroup.Label>Type</RadioGroup.Label>
+                    <div>
+                        {types.map(type => (
+                            <RadioGroup.Option>{type}</RadioGroup.Option>
+                        ))}
+                    </div>
+                    </RadioGroup>
             </div>
             <div className="bg-gray-100 rounded-2xl p-5">
 
