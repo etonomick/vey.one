@@ -56,11 +56,11 @@ export default function Editor({ projectId }) {
 
     return (
         <div className="w-full flex flex-col md:flex-row gap-8">
-            <div className="w-full md:w-64 flex flex-col gap-8">
+            <div className="w-full md:w-64 flex flex-col gap-5">
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
                         {(provided) => (
-                            <div className="flex flex-row snap-mandatory snap-x md:flex-col gap-5 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
+                            <div className="flex flex-row snap-mandatory snap-x md:flex-col gap-1 overflow-x-auto" {...provided.droppableProps} ref={provided.innerRef}>
                                 {slides.map((slide, index) => {
 
                                     const active = activeSlide && activeSlide.id === slide.id
