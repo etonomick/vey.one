@@ -8,6 +8,7 @@ import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Heading from "../ui/Heading";
 import { MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md"
+import SlideEditor from "./SlideEditor";
 
 export default function Editor({ projectId }) {
 
@@ -90,6 +91,7 @@ export default function Editor({ projectId }) {
                                                             }).then(_ => mutate(withToken(`/api/projects/${projectId}/slides`)))
                                                         }}><MdOutlineContentCopy /></Button></div>
                                                         <div><Button ghost onClick={() => {
+                                                            setActiveSlide(null)
                                                             fetch(`/api/slides/${slide.id}`, {
                                                                 method: "DELETE",
                                                                 headers: {
@@ -135,9 +137,9 @@ export default function Editor({ projectId }) {
             </div>
             <div className="flex-1">
                 <div className="w-full h-80 rounded-2xl">
-                    {activeSlide ? <Heading>{activeSlide.title}</Heading> : "Select slide from left"}
+                    {!activeSlide && "Select slide from left"}
                     <div>
-
+                        {activeSlide && <SlideEditor slide={activeSlide} />}
                     </div>
                 </div>
             </div>
