@@ -17,9 +17,9 @@ function Vey({ Component, pageProps }) {
     }, [])
 
     return (
-        <div className="">
+        <>
         {router.pathname.split("/")[1] === "dashboard" ? <Dashboard><Component {...pageProps} /></Dashboard> : <Component {...pageProps} />}
-        </div>
+        </>
     )
 }
 

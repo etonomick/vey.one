@@ -56,7 +56,7 @@ export default function Editor({ projectId }) {
 
     return (
         <div className="w-full flex flex-col md:flex-row gap-8">
-            <div className="w-full md:w-64 flex flex-col gap-5">
+            <div className="w-full md:w-64 flex flex-col gap-5 bg-white p-5 rounded-3xl">
                 {slides.length === 0 && <>You have no slides</>}
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">

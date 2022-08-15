@@ -32,14 +32,14 @@ export default function SlideEditor({ slide }) {
         )
     }
 
-    // if (!data) {
-    //     return (
-    //         <div>Loading slide {slide.id}...</div>
-    //     )
-    // }
+    if (!data) {
+        return (
+            <div>Loading slide {slide.id}...</div>
+        )
+    }
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl">
             <div className={`flex flex-col gap-5`}>
                 {/* <Editable>{slide.title}</Editable> */}
                 <div>{title && title}</div>

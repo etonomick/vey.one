@@ -4,7 +4,7 @@ import Text from "./Text";
 
 export default function ProjectCard({ project }) {
     return (
-        <div className="bg-gray-100 p-5 rounded-2xl flex flex-col gap-5">
+        <div className="bg-white shadow p-5 rounded-2xl flex flex-col gap-5">
             <div className="flex-1">
                 <Link href={`/dashboard/${project.id}`}><Heading md>{project.title}</Heading></Link>
                 <Text>{project.description}</Text>

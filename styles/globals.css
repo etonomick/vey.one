@@ -16,3 +16,8 @@
         url("/fonts/Inter-Bold.woff") format("woff");
     }
 }
+
+body {
+    background-color: rgb(243 244 246);
+    padding: 1em;
+}
