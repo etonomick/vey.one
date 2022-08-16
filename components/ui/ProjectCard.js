@@ -13,7 +13,6 @@ export default function ProjectCard({ project }) {
             <div className="flex flex-row place-content-between">
                 <div>{project.created_at}</div>
                 <div>{project.slides[0].count} slides</div>
-                <div><Button>Open</Button></div>
             </div>
         </div>
     )

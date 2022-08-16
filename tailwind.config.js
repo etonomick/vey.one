@@ -9,7 +9,9 @@ module.exports = {
       'sans': ['Inter'],
     },
     extend: {
-      
+      aspectRatio: {
+        '4/3': '4 /3'
+      },
     },
   },
   plugins: [],

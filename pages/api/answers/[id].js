@@ -13,6 +13,14 @@ async function handler(req, res) {
         })
     }
 
+    if (req.method === "GET") {
+        const { data, error } = await supabase.from("answers").select("*").eq("id", id).single()
+        res.status(200).json({
+            data,
+            error
+        })
+    }
+
 }
 
 export default withAuth(handler)
