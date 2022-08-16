@@ -4,7 +4,7 @@ import useSWR, { mutate } from "swr"
 import fetcher from "../../utils/fetcher"
 import { supabase } from "../../utils/supabaseClient"
 import withToken from "../../utils/withToken"
-import Editable from "../ui/Editable"
+import Button from "../ui/Button"
 import Heading from "../ui/Heading"
 
 export default function SlideEditor({ slide }) {
@@ -39,17 +39,24 @@ export default function SlideEditor({ slide }) {
     }
 
     return (
-        <div className="flex flex-col gap-5 bg-white p-8 rounded border border-gray-200">
+        <div className="flex flex-col gap-5 bg-white p-8 rounded border border-gray-200 aspect=[4/3]">
             <div className={`flex flex-col gap-5`}>
-                {/* <Editable>{slide.title}</Editable> */}
-                <div>{title && title}</div>
-                <div contentEditable onInput={(e) => {
-                    setTitle(e.currentTarget.textContent)
-                }} onBlur={() => {
-                    
-                }}>{data.data.title}</div>
+                <Heading>{data.data.title}</Heading>
                 {data.data.answers.map(answer => (
-                    <div>{answer.title}</div>
+                    <div className="flex flex-row w-full items-center">
+                        <div className="flex-1">{answer.title}</div>
+                        <div><Button onClick={() => {
+                            fetch(`/api/answers/${answer.id}`, {
+                                method: "DELETE",
+                                headers: {
+                                    "Authorization": supabase.auth.session().access_token,
+                                    "Content-Type": "application/json"
+                                }
+                            }).then(res => res.json()).then((data) => {
+                                mutate(withToken(`/api/slides/${id}`))
+                            })
+                        }}>Delete</Button></div>
+                    </div>
                 ))}
                 <input className="border" type="text" value={newAnswerTitle} onChange={e => {
                     setNewAnswerTitle(e.target.value)
