@@ -1,6 +1,7 @@
 import Link from "./Link";
 import Heading from "./Heading";
 import Text from "./Text";
+import Button from "./Button";
 
 export default function ProjectCard({ project }) {
     return (
@@ -12,6 +13,7 @@ export default function ProjectCard({ project }) {
             <div className="flex flex-row place-content-between">
                 <div>{project.created_at}</div>
                 <div>{project.slides[0].count} slides</div>
+                <div><Button>Open</Button></div>
             </div>
         </div>
     )

@@ -7,8 +7,9 @@ import withToken from "../../utils/withToken";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import Heading from "../ui/Heading";
-import { MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md"
 import SlideEditor from "./SlideEditor";
+import { MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md"
+
 
 export default function Editor({ projectId }) {
 
@@ -140,7 +141,7 @@ export default function Editor({ projectId }) {
                 <div className="w-full h-80 rounded-2xl">
                     {!activeSlide && "Select slide from left"}
                     <div>
-                        {activeSlide && <SlideEditor slide={activeSlide && activeSlide} />}
+                        {activeSlide && <SlideEditor key={activeSlide.id} slide={activeSlide} />}
                         {/* {activeSlide && <SlideEditor slide={activeSlide} />} */}
                     </div>
                 </div>
