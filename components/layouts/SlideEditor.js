@@ -16,7 +16,7 @@ export default function SlideEditor({ slide }) {
 
     const { id } = slide
 
-    const { data, error } = useSWR(withToken(`/api/slides/${id}`), fetcher)
+    const { data, error } = useSWR(`/api/slides/${id}`, fetcher)
     const [newAnswerTitle, setNewAnswerTitle] = useState("")
 
     const [title, setTitle] = useState(slide.title)
@@ -43,23 +43,23 @@ export default function SlideEditor({ slide }) {
         <div className="flex flex-col gap-5 bg-white p-8 rounded border border-gray-200 aspect-4/3">
             <div className={`flex flex-col gap-5`}>
                 {/* <Heading>{data.data.title}</Heading> */}
-                <Editable>{data.data.title}</Editable>
+                {/* <Editable>{data.data.title}</Editable> */}
                 {data.data.answers.map(answer => (
-                    <Editable key={answer.id} id={answer.id} />
-                    // <div className="flex flex-row w-full items-center">
-                    //     <div className="flex-1">{answer.title}</div>
-                    //     <div><Button onClick={() => {
-                    //         fetch(`/api/answers/${answer.id}`, {
-                    //             method: "DELETE",
-                    //             headers: {
-                    //                 "Authorization": supabase.auth.getSession().access_token,
-                    //                 "Content-Type": "application/json"
-                    //             }
-                    //         }).then(res => res.json()).then((data) => {
-                    //             mutate(withToken(`/api/slides/${id}`))
-                    //         })
-                    //     }}>Delete</Button></div>
-                    // </div>
+                    // <Editable key={answer.id} id={answer.id} />
+                    <div className="flex flex-row w-full items-center">
+                        <div className="flex-1">{answer.title}</div>
+                        <div><Button onClick={() => {
+                            fetch(`/api/answers/${answer.id}`, {
+                                method: "DELETE",
+                                headers: {
+                                    "Authorization": supabase.auth.getSession().access_token,
+                                    "Content-Type": "application/json"
+                                }
+                            }).then(res => res.json()).then((data) => {
+                                mutate(withToken(`/api/slides/${id}`))
+                            })
+                        }}>Delete</Button></div>
+                    </div>
                 ))}
                 <input className="border" type="text" value={newAnswerTitle} onChange={e => {
                     setNewAnswerTitle(e.target.value)

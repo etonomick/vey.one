@@ -5,7 +5,7 @@ const withAuth = (handler) => {
     return async (req, res) => {
 
         const jwt = req.headers["authorization"]
-        console.log(jwt)
+        // console.log(jwt)
 
         if (!jwt) {
             return res.status(401).json({
@@ -26,7 +26,7 @@ const withAuth = (handler) => {
         }
 
         req.user = user
-        console.log(user)
+        // console.log(user)
 
         return handler(req, res)
 

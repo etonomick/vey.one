@@ -48,12 +48,12 @@ export default function Editor({ projectId }) {
         fetch("/api/slides/update", {
             method: "POST",
             headers: {
-                "Authorization": supabase.auth.getSession().access_token,
+                "Authorization": session.access_token,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(update)
         }).then(res => res.json()).then(data => {
-            // make toast like message
+
         })
     }
 
@@ -134,9 +134,10 @@ export default function Editor({ projectId }) {
                                     title: newSlideTitle,
                                     position: slides.length
                                 })
-                            }).then(res => res.json()).then(data => {
+                            }).then(res => res.json())
+                            .then(data => {
                                 setNewSlideTitle("")
-                                alert(JSON.stringify(data))
+                                // alert(JSON.stringify(data))
                             })
                         }
                     }} />
