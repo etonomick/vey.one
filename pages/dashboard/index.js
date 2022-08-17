@@ -11,25 +11,31 @@ import withToken from "../../utils/withToken"
 export default function Projects() {
 
     const { session } = useAppContext()
-    const { data, error } = useSWR(withToken("/api/projects"), fetcher)
+    const { data, error } = useSWR(withToken("/api/projects", session), fetcher)
 
     if (error) {
         return (
+            <>
+            {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
+            <pre>{JSON.stringify(error, null, 2)}</pre>
             <div>Failed to load projects</div>
+            </>
         )
     }
 
     if (!data) {
         return (
             <div>
-                {JSON.stringify(session)}
+                {/* {JSON.stringify(session)} */}
                 Loading projects...
             </div>
         )
     }
 
     return (
-        <div>{JSON.stringify(data)}</div>
+        <div>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
     )
 
     return (

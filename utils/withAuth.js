@@ -5,6 +5,7 @@ const withAuth = (handler) => {
     return async (req, res) => {
 
         const jwt = req.headers["authorization"]
+        console.log(jwt)
 
         if (!jwt) {
             return res.status(401).json({
@@ -14,10 +15,11 @@ const withAuth = (handler) => {
             })
         }
 
-        const { user, error } = supabase.auth.getUser(jwt)
+        const { data: { user }, error } = await supabase.auth.getUser(jwt)
+        // console.log(error)
         
         if (error) {
-            res.status(500).json({
+            res.status(401).json({
                 error: {
                     message: "User not found"
                 }
