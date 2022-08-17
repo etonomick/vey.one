@@ -9,13 +9,17 @@ import Input from "../ui/Input";
 import Heading from "../ui/Heading";
 import SlideEditor from "./SlideEditor";
 import { MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md"
+import { useAppContext } from "../../context/state";
+import { data } from "autoprefixer";
 
 
 export default function Editor({ projectId }) {
 
-    const { data: s, error } = useSWR(withToken(`/api/projects/${projectId}/slides`), fetcher)
+    const { data: s, error } = useSWR(`/api/projects/${projectId}/slides`, fetcher) // useSWR(withToken(`/api/projects/${projectId}/slides`), fetcher)
 
     const [slides, setSlides] = useState([])
+
+    const { session } = useAppContext()
 
     useEffect(() => {
         if (s) setSlides(s.data.map((slide, index) => {
@@ -97,10 +101,11 @@ export default function Editor({ projectId }) {
                                                             fetch(`/api/slides/${slide.id}`, {
                                                                 method: "DELETE",
                                                                 headers: {
-                                                                    "Authorization": supabase.auth.getSession().access_token,
+                                                                    "Authorization": session.access_token,
                                                                 }
-                                                            }).then(res => res.json()).then(() => {
-                                                                mutate(withToken(`/api/projects/${projectId}/slides`))
+                                                            }).then(res => res.json()).then((data) => {
+                                                                alert(JSON.stringify(data))
+                                                                // mutate(withToken(`/api/projects/${projectId}/slides`))
                                                             })
                                                         }}><MdDeleteOutline /></Button></div>
                                                     </div>
@@ -121,7 +126,7 @@ export default function Editor({ projectId }) {
                             fetch("/api/slides/create", {
                                 method: "POST",
                                 headers: {
-                                    "Authorization": supabase.auth.getSession().access_token,
+                                    "Authorization": session.access_token,
                                     "Content-Type": "application/json"
                                 },
                                 body: JSON.stringify({
@@ -131,7 +136,7 @@ export default function Editor({ projectId }) {
                                 })
                             }).then(res => res.json()).then(data => {
                                 setNewSlideTitle("")
-                                mutate(withToken(`/api/projects/${projectId}/slides`))
+                                alert(JSON.stringify(data))
                             })
                         }
                     }} />

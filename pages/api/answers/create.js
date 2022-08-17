@@ -8,7 +8,7 @@ async function hander(req, res) {
     const { data, error } = await supabase.from("answers").insert({
         slide_id,
         title
-    })
+    }).select()
 
     res.status(200).json({
         data,

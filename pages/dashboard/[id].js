@@ -12,13 +12,14 @@ import ProjectPreferences from "../../components/layouts/ProjectPreferences";
 import Integrations from "../../components/layouts/Integrations";
 import Events from "../../components/layouts/Events";
 import { MdOutlineFolder } from "react-icons/md"
+import { useAppContext } from "../../context/state";
 
 export default function Project() {
 
     const router = useRouter()
     const { id } = router.query
 
-    const { data, error } = useSWR(withToken(`/api/projects/${id}`), fetcher)
+    const { data, error } = useSWR(`/api/projects/${id}`, fetcher) // useSWR(withToken(`/api/projects/${id}`), fetcher)
 
     if (error) {
         return (

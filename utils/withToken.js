@@ -1,17 +1,15 @@
-import { useState } from "react";
-import { useAppContext } from "../context/state";
-import { supabase } from "./supabaseClient";
+import { useAppContext } from "../context/state"
 
-export default function withToken(endpoint, session) {
+export default function withToken(endpoint) {
 
-    const { access_token } = session
+    const { session } = useAppContext()
 
     return [
         endpoint,
         {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${access_token}`
+                "Authorization": `${session.access_token}`
             }
         }
     ]

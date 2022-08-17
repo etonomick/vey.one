@@ -3,15 +3,13 @@ import Button from "../../components/ui/Button"
 import Heading from "../../components/ui/Heading"
 import Input from "../../components/ui/Input"
 import ProjectCard from "../../components/ui/ProjectCard"
-import { useAppContext } from "../../context/state"
 import fetcher from "../../utils/fetcher"
 import { supabase } from "../../utils/supabaseClient"
 import withToken from "../../utils/withToken"
 
 export default function Projects() {
 
-    const { session } = useAppContext()
-    const { data, error } = useSWR(withToken("/api/projects", session), fetcher)
+    const { data, error } = useSWR("/api/projects", fetcher) // useSWR(withToken("/api/projects"), fetcher)
 
     if (error) {
         return (
@@ -31,13 +29,7 @@ export default function Projects() {
             </div>
         )
     }
-
-    return (
-        <div>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-    )
-
+    
     return (
         <div className="flex flex-col gap-5">
             <Heading>Projects</Heading>

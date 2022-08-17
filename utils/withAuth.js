@@ -16,7 +16,6 @@ const withAuth = (handler) => {
         }
 
         const { data: { user }, error } = await supabase.auth.getUser(jwt)
-        // console.log(error)
         
         if (error) {
             res.status(401).json({
