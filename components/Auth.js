@@ -18,10 +18,8 @@ export default function Auth() {
             <Vey />
             <Heading>Sign In</Heading>
             <Button onClick={() => {
-                supabase.auth.signIn({
+                supabase.auth.signInWithOAuth({
                     provider: "discord"
-                }, {
-                    redirectTo: location
                 })
             }}><FaDiscord /> Discord</Button>
         </div>

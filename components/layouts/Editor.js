@@ -44,7 +44,7 @@ export default function Editor({ projectId }) {
         fetch("/api/slides/update", {
             method: "POST",
             headers: {
-                "Authorization": supabase.auth.session().access_token,
+                "Authorization": supabase.auth.getSession().access_token,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(update)
@@ -82,7 +82,7 @@ export default function Editor({ projectId }) {
                                                             fetch("/api/slides/create", {
                                                                 method: "POST",
                                                                 headers: {
-                                                                    "Authorization": supabase.auth.session().access_token,
+                                                                    "Authorization": supabase.auth.getSession().access_token,
                                                                     "Content-Type": "application/json"
                                                                 },
                                                                 body: JSON.stringify({
@@ -97,7 +97,7 @@ export default function Editor({ projectId }) {
                                                             fetch(`/api/slides/${slide.id}`, {
                                                                 method: "DELETE",
                                                                 headers: {
-                                                                    "Authorization": supabase.auth.session().access_token,
+                                                                    "Authorization": supabase.auth.getSession().access_token,
                                                                 }
                                                             }).then(res => res.json()).then(() => {
                                                                 mutate(withToken(`/api/projects/${projectId}/slides`))
@@ -121,7 +121,7 @@ export default function Editor({ projectId }) {
                             fetch("/api/slides/create", {
                                 method: "POST",
                                 headers: {
-                                    "Authorization": supabase.auth.session().access_token,
+                                    "Authorization": supabase.auth.getSession().access_token,
                                     "Content-Type": "application/json"
                                 },
                                 body: JSON.stringify({

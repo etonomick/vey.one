@@ -3,12 +3,14 @@ import Button from "../../components/ui/Button"
 import Heading from "../../components/ui/Heading"
 import Input from "../../components/ui/Input"
 import ProjectCard from "../../components/ui/ProjectCard"
+import { useAppContext } from "../../context/state"
 import fetcher from "../../utils/fetcher"
 import { supabase } from "../../utils/supabaseClient"
 import withToken from "../../utils/withToken"
 
 export default function Projects() {
 
+    const { session } = useAppContext()
     const { data, error } = useSWR(withToken("/api/projects"), fetcher)
 
     if (error) {
@@ -19,9 +21,16 @@ export default function Projects() {
 
     if (!data) {
         return (
-            <div>Loading projects...</div>
+            <div>
+                {JSON.stringify(session)}
+                Loading projects...
+            </div>
         )
     }
+
+    return (
+        <div>{JSON.stringify(data)}</div>
+    )
 
     return (
         <div className="flex flex-col gap-5">
@@ -34,12 +43,12 @@ export default function Projects() {
                 <div className="p-5 border border-dashed flex items-start flex-col gap-3">
                 <Input placeholder="Project Name" />
                 <Input placeholder="Short description" sm />
-                <Button onClick={() => {
+                <Button onClick={async () => {
                     fetch("/api/projects/create", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            "Authorization": supabase.auth.session().access_token
+                            "Authorization": await supabase.auth.getSession().access_token
                         },
                         body: JSON.stringify({
                             title: "api test",

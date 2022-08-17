@@ -52,7 +52,7 @@ export default function SlideEditor({ slide }) {
                     //         fetch(`/api/answers/${answer.id}`, {
                     //             method: "DELETE",
                     //             headers: {
-                    //                 "Authorization": supabase.auth.session().access_token,
+                    //                 "Authorization": supabase.auth.getSession().access_token,
                     //                 "Content-Type": "application/json"
                     //             }
                     //         }).then(res => res.json()).then((data) => {
@@ -68,7 +68,7 @@ export default function SlideEditor({ slide }) {
                         fetch("/api/answers/create", {
                             method: "POST",
                             headers: {
-                                "Authorization": supabase.auth.session().access_token,
+                                "Authorization": supabase.auth.getSession().access_token,
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({

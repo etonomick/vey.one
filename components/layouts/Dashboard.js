@@ -8,7 +8,12 @@ import Vey from "../ui/Vey";
 export default function Dashboard({ children }) {
 
     const [loading, setLoading] = useState(true)
-    const [session, setSession] = useState(supabase.auth.session())
+    const [session, setSession] = useState(null)
+
+    async function getCurrentUser() {
+        const { data: {session}, error } = await supabase.auth.getSession()
+        setSession(session)
+    }
 
     useEffect(() => {
         supabase.auth.onAuthStateChange((_event, session) => {
@@ -19,6 +24,8 @@ export default function Dashboard({ children }) {
     useEffect(() => {
         setLoading(false)
     }, [session])
+
+    getCurrentUser()
 
     if (loading) {
         return (
@@ -38,7 +45,7 @@ export default function Dashboard({ children }) {
                 <div><Link href="/dashboard"><Vey /></Link></div>
                 <div className="flex flex-row items-center gap-3">
                     <div>
-                        <Link href="/dashboard/profile">{supabase.auth.user().email}</Link>
+                        <Link href="/dashboard/profile">{supabase.auth.getUser().email}</Link>
                     </div>
                     <Button onClick={() => {
                         supabase.auth.signOut()
