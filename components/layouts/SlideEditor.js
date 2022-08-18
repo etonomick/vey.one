@@ -50,12 +50,14 @@ export default function SlideEditor({ slide }) {
 
                 <Editable onEnter={value => {
                     alert(value)
-                }}>{data.data.title}</Editable>
+                }} placeholder="Slide title">{data.data.title}</Editable>
 
                 <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">
                     {data.data.answers.map(answer => (
                         <div className="flex flex-row items-center">
-                            <div className="flex flex-1"><Editable>{answer.title}</Editable></div>
+                            <div className="flex-1">
+                                <Editable key={answer.title}>{answer.title}</Editable>
+                            </div>
                             <div><Button onClick={() => {
                                 fetch(`/api/answers/${answer.id}`, {
                                     method: "DELETE",
@@ -84,7 +86,7 @@ export default function SlideEditor({ slide }) {
                             setNewAnswerTitle("")
                             mutate(`/api/slides/${id}`)
                         })
-                    }}></Editable>
+                    }} placeholder="New answer title"></Editable>
                 </div>
             </div>
         </div>

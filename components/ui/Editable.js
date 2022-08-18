@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function Editable({ children, onEnter }) {
+export default function Editable({ children, onEnter, placeholder = "Placeholder" }) {
 
     const [edited, setEdited] = useState(children)
 
@@ -9,18 +9,20 @@ export default function Editable({ children, onEnter }) {
     }
 
     useEffect(() => {
-
+        if (edited === "/") {
+            // list of commands
+        }
     }, [edited])
 
     return (
         <div className="text-4xl relative">
-            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full bg-pink-500/50 left-0 right-0 flex" onKeyDown={(e) => {
+            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full h-auto relative z-10" onKeyDown={(e) => {
                 if (e.key === "Enter") {
                     e.preventDefault()
                     onEnter && onEnter(edited)
                 }
             }}>{children}</div>
-            {!edited && <span className="absolute top-0 select-none text-neutral-200">Untitled</span>}
+            <div className={`top-0 ${edited ? "hidden" : "absolute"} z-0 left-0 top-0 select-none text-neutral-200`}>{placeholder}</div>
         </div>
 
     )
