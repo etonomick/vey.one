@@ -104,8 +104,9 @@ export default function Editor({ projectId }) {
                                                                     "Authorization": session.access_token,
                                                                 }
                                                             }).then(res => res.json()).then((data) => {
-                                                                alert(JSON.stringify(data))
+                                                                // alert(JSON.stringify(data))
                                                                 // mutate(withToken(`/api/projects/${projectId}/slides`))
+                                                                mutate(`/api/projects/${projectId}/slides`)
                                                             })
                                                         }}><MdDeleteOutline /></Button></div>
                                                     </div>
@@ -137,6 +138,7 @@ export default function Editor({ projectId }) {
                             }).then(res => res.json())
                             .then(data => {
                                 setNewSlideTitle("")
+                                mutate(`/api/projects/${projectId}/slides`)
                                 // alert(JSON.stringify(data))
                             })
                         }

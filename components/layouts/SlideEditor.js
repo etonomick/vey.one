@@ -56,7 +56,7 @@ export default function SlideEditor({ slide }) {
                                     "Content-Type": "application/json"
                                 }
                             }).then(res => res.json()).then((data) => {
-                                mutate(withToken(`/api/slides/${id}`))
+                                mutate(`/api/slides/${id}`)
                             })
                         }}>Delete</Button></div>
                     </div>
@@ -77,7 +77,7 @@ export default function SlideEditor({ slide }) {
                             })
                         }).then(res => res.json()).then(data => {
                             setNewAnswerTitle("")
-                            mutate(withToken(`/api/slides/${id}`))
+                            mutate(`/api/slides/${id}`)
                         })
                     }
                 }} />

@@ -15,9 +15,14 @@
         src: url("/fonts/Inter-Bold.woff2") format("woff2"),
         url("/fonts/Inter-Bold.woff") format("woff");
     }
+    @font-face {
+        font-family: "BluuNext";
+        src: url("/fonts/bluunext-bold-webfont.woff2") format("woff2"),
+        url("/fonts/bluunext-bold.webfont.woff") format("woff");
+    }
 }
 
 body {
-    background-color: rgb(243 244 246);
+    background-color: rgb(255 247 237);
     padding: 0em;
 }

@@ -30,7 +30,7 @@ export default function Dashboard({ children }) {
 
     return (
         <div className="flex flex-col space-y-5 pb-10">
-            <div className="flex flex-row items-center place-content-between p-5 border-b border-b-gray-200 bg-gray-50">
+            <div className="flex flex-row items-center place-content-between p-5 sticky top-0 bg-orange-50/30 backdrop-blur-md">
                 <div><Link href="/dashboard"><Vey /></Link></div>
                 <div className="flex flex-row items-center gap-3">
                     {/* <div>

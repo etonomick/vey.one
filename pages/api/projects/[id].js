@@ -5,7 +5,7 @@ async function handler(req, res) {
     
     const { id } = req.query
 
-    const { data, error } = await supabase.from("projects").select("*").eq("user_id", req.user.id).eq("id", id).single()
+    const { data, error } = await supabase.from("projects").select(`*, slides(count)`).eq("user_id", req.user.id).eq("id", id).single()
     if (error) return res.status(500).json(error)
     res.status(200).json(data)
 

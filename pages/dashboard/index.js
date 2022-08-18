@@ -9,14 +9,12 @@ import withToken from "../../utils/withToken"
 
 export default function Projects() {
 
-    const { data, error } = useSWR("/api/projects", fetcher) // useSWR(withToken("/api/projects"), fetcher)
+    const { data, error } = useSWR("/api/projects", fetcher)
 
     if (error) {
         return (
             <>
-            {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
-            <pre>{JSON.stringify(error, null, 2)}</pre>
-            <div>Failed to load projects</div>
+                <div>Failed to load projects</div>
             </>
         )
     }
@@ -29,7 +27,7 @@ export default function Projects() {
             </div>
         )
     }
-    
+
     return (
         <div className="flex flex-col gap-5">
             <Heading>Projects</Heading>
@@ -39,22 +37,22 @@ export default function Projects() {
                 ))}
                 {/* <ProjectCard /> */}
                 <div className="p-5 border border-dashed flex items-start flex-col gap-3">
-                <Input placeholder="Project Name" />
-                <Input placeholder="Short description" sm />
-                <Button onClick={async () => {
-                    fetch("/api/projects/create", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": await supabase.auth.getSession().access_token
-                        },
-                        body: JSON.stringify({
-                            title: "api test",
-                            description: ""
-                        })
-                    }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
-                }}>Create</Button>
-            </div>
+                    <Input placeholder="Project Name" />
+                    <Input placeholder="Short description" sm />
+                    <Button onClick={async () => {
+                        fetch("/api/projects/create", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": await supabase.auth.getSession().access_token
+                            },
+                            body: JSON.stringify({
+                                title: "api test",
+                                description: ""
+                            })
+                        }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
+                    }}>Create</Button>
+                </div>
             </div>
         </div>
     )

@@ -35,7 +35,7 @@ export default function Project() {
 
     const tabs = [
         {
-            title: "Editor",
+            title: `Editor ${data.slides[0].count}`,
             view: <Editor projectId={id} />
         },
         {
@@ -56,12 +56,13 @@ export default function Project() {
         <div className="flex flex-col gap-5">
 
             <Heading>{data.title ?? "Untitled"}</Heading>
+            {/* <pre className="whitespace-pre">{JSON.stringify(data, null, 2)}</pre> */}
             <Text>{data.description}</Text>
 
             <Tab.Group>
                 <Tab.List className="flex space-x-5 overflow-x-scroll">
                     {tabs.map(({title}) => (
-                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 rounded ${selected ? "bg-green-300" : "bg-transparent hover:bg-white/30"} appearance-none focus:outline-none`}><MdOutlineFolder /> {title}</Tab>
+                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 rounded-full ${selected ? "bg-black text-white" : "bg-transparent hover:bg-white/30"} appearance-none focus:outline-none`}><MdOutlineFolder /> {title}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>

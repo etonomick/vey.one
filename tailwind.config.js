@@ -7,10 +7,11 @@ module.exports = {
   theme: {
     fontFamily: {
       'sans': ['Inter'],
+      'serif': ['BluuNext'],
     },
     extend: {
       aspectRatio: {
-        '4/3': '4 /3'
+        '4/3': '4 /3',
       },
     },
   },
