@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function Editable({ id, children }) {
+export default function Editable({ children, onEnter }) {
 
     const [edited, setEdited] = useState(children)
 
@@ -9,17 +9,19 @@ export default function Editable({ id, children }) {
     }
 
     useEffect(() => {
-        
+
     }, [edited])
 
     return (
-        <div className="inline-flex text-4xl relative">
-            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full z-10" onKeyDown={(e) => {
+        <div className="text-4xl relative">
+            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full bg-pink-500/50 left-0 right-0 flex" onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                    // update
+                    e.preventDefault()
+                    onEnter && onEnter(edited)
                 }
             }}>{children}</div>
-            {!edited && <div className="absolute top-0 select-none text-neutral-200">Untitled</div>}
+            {!edited && <span className="absolute top-0 select-none text-neutral-200">Untitled</span>}
         </div>
+
     )
 }

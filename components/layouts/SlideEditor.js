@@ -1,6 +1,7 @@
 import { RadioGroup } from "@headlessui/react"
 import { useEffect, useState } from "react"
 import useSWR, { mutate } from "swr"
+import { useAppContext } from "../../context/state"
 import fetcher from "../../utils/fetcher"
 import { supabase } from "../../utils/supabaseClient"
 import withToken from "../../utils/withToken"
@@ -13,6 +14,8 @@ export default function SlideEditor({ slide }) {
     if (!slide) {
         return <>empty state</>
     }
+
+    const { session } = useAppContext()
 
     const { id } = slide
 
@@ -45,12 +48,14 @@ export default function SlideEditor({ slide }) {
         <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl aspect-4/3 overflow-y-auto">
             <div className={`flex flex-col gap-5`}>
 
-                <Editable>{data.data.title}</Editable>
+                <Editable onEnter={value => {
+                    alert(value)
+                }}>{data.data.title}</Editable>
 
                 <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">
                     {data.data.answers.map(answer => (
-                        <div className="flex flex-row w-full items-center">
-                            <Editable>{answer.title}</Editable>
+                        <div className="flex flex-row items-center">
+                            <div className="flex flex-1"><Editable>{answer.title}</Editable></div>
                             <div><Button onClick={() => {
                                 fetch(`/api/answers/${answer.id}`, {
                                     method: "DELETE",
@@ -64,34 +69,23 @@ export default function SlideEditor({ slide }) {
                             }}>Delete</Button></div>
                         </div>
                     ))}
-                    <Editable></Editable>
-                </div>
-
-                <input className="border" type="text" value={newAnswerTitle} onChange={e => {
-                    setNewAnswerTitle(e.target.value)
-                }} onKeyDown={(e) => {
-                    if (e.key === "Enter") {
+                    <Editable key={data.data.answers.length + 2} onEnter={value => {
                         fetch("/api/answers/create", {
                             method: "POST",
                             headers: {
-                                "Authorization": supabase.auth.getSession().access_token,
+                                "Authorization": session.access_token,
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
                                 slide_id: id,
-                                title: newAnswerTitle
+                                title: value
                             })
                         }).then(res => res.json()).then(data => {
                             setNewAnswerTitle("")
                             mutate(`/api/slides/${id}`)
                         })
-                    }
-                }} />
-            </div>
-            <div className="border border-neutral-300 rounded-3xl divide-y p-8 absolute top-3 right-3 flex flex-col">
-                {layouts.map((layout, index) => (
-                    <div>{index}</div>
-                ))}
+                    }}></Editable>
+                </div>
             </div>
         </div>
     )
