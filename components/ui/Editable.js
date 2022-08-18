@@ -1,20 +1,21 @@
-import { useState } from "react"
-import useSWR from "swr"
-import fetcher from "../../utils/fetcher"
-import withToken from "../../utils/withToken"
+import { useEffect, useState } from "react"
 
 export default function Editable({ id, children }) {
 
-    const { data, error } = useSWR(withToken(`/api/answers/${id}`), fetcher)
+    const [edited, setEdited] = useState(children)
 
-    const handler = (e) => {
-        
+    function handleInput(e) {
+        setEdited(e.currentTarget.textContent)
     }
 
+    useEffect(() => {
+        
+    }, [edited])
+
     return (
-        <div>
-            <div contentEditable={data ? true : "false"} onInput={handler}>{!data ? "Loading..." : data ?? {}.data ?? {}.title ?? ""}</div>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+        <div className="inline-flex text-4xl">
+            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full z-10">{children}</div>
+            {!edited && <div className="absolute select-none text-neutral-200">Untitled</div>}
         </div>
     )
 }

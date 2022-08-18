@@ -40,12 +40,12 @@ export default function Project() {
             count: data.slides[0].count
         },
         {
-            title: "Preferences",
-            view: <ProjectPreferences id={id} />
+            title: "Live",
+            view: <Events />
         },
         {
-            title: "Events",
-            view: <Events />
+            title: "Preferences",
+            view: <ProjectPreferences id={id} />
         },
         {
             title: "Integrations",
@@ -62,7 +62,7 @@ export default function Project() {
             <Tab.Group>
                 <Tab.List className="flex space-x-5 overflow-x-scroll">
                     {tabs.map(({ title, count }) => (
-                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 relative rounded-2xl ${selected ? "bg-neutral-800 text-white" : "bg-transparent"} appearance-none focus:outline-none flex-nowrap ring-0`}>{title} {count && <div className="absolute top-1 right-3 text-xs rounded-full z-10">{count}</div>}</Tab>
+                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 relative rounded-2xl ${selected ? "bg-neutral-800 text-white" : "bg-transparent"} appearance-none focus:outline-none flex-nowrap ring-0`}>{title} {count && <div className="text-neutral-500">{count}</div>}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>

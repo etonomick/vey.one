@@ -8,6 +8,7 @@ import Button from "../ui/Button";
 import SlideEditor from "./SlideEditor";
 import { MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md"
 import { useAppContext } from "../../context/state";
+import Heading from "../ui/Heading";
 
 
 export default function Editor({ projectId }) {
@@ -74,7 +75,11 @@ export default function Editor({ projectId }) {
                                                 <div className={`snap-center transition-all duration-250 ${active ? "bg-white" : "bg-transparent"} p-5 rounded-3xl flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
-                                                    <div className="text-xl">{index + 1} {slide.title}</div>
+                                                    <div>{index + 1}</div>
+                                                    <div className="text-xl">
+                                                        <Heading sm>{slide.title}</Heading>
+                                                    </div>
+                                                    <div>{slide.answers[0].count} answers</div>
                                                     {/* <pre className="text-xs">{JSON.stringify(slide, null, 2)}</pre> */}
                                                 </div>
                                                     <div className={`flex flex-row md:flex-col items-center place-content-between md:place-content-start gap-2`}>
@@ -127,7 +132,7 @@ export default function Editor({ projectId }) {
                 </div>
             </div>
             <div className="flex-1">
-                <div className="w-full h-80 rounded-2xl">
+                <div className="w-full h-80 rounded-2xl sticky top-24">
                     {!activeSlide && "Select slide from left"}
                     {activeSlide && <SlideEditor key={activeSlide.id} slide={activeSlide} />}
                 </div>
