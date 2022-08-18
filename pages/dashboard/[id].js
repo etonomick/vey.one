@@ -57,17 +57,16 @@ export default function Project() {
         <div className="flex flex-col gap-5">
 
             <Heading>{data.title ?? "Untitled"}</Heading>
-            {/* <pre className="whitespace-pre">{JSON.stringify(data, null, 2)}</pre> */}
             <Text>{data.description}</Text>
 
             <Tab.Group>
                 <Tab.List className="flex space-x-5 overflow-x-scroll">
-                    {tabs.map(({title, count}) => (
-                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 font-bold relative rounded-full ${selected ? "bg-black text-white" : "bg-transparent hover:bg-white/30"} appearance-none focus:outline-none flex-nowrap`}>{title} {count && <div className="fixed -top-3 -right-3 bg-red-500 h-5 w-5 rounded-full z-50">{count}</div>}</Tab>
+                    {tabs.map(({ title, count }) => (
+                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 relative rounded-2xl ${selected ? "bg-neutral-800 text-white" : "bg-transparent"} appearance-none focus:outline-none flex-nowrap ring-0`}>{title} {count && <div className="absolute top-1 right-3 text-xs rounded-full z-10">{count}</div>}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>
-                    {tabs.map(({view}, idx) => (
+                    {tabs.map(({ view }, idx) => (
                         <Tab.Panel key={idx}>
                             {view}
                         </Tab.Panel>

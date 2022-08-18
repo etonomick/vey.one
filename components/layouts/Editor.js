@@ -71,28 +71,14 @@ export default function Editor({ projectId }) {
                                     return (
                                         <Draggable index={index} key={slide.id} draggableId={slide.id}>
                                             {(provided) => (
-                                                <div className={`snap-center transition-all duration-250 ${active ? "bg-white" : "bg-white"} p-5 rounded-3xl flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
+                                                <div className={`snap-center transition-all duration-250 ${active ? "bg-white" : "bg-transparent"} p-5 rounded-3xl flex flex-col md:flex-row gap-2`}><div className={`cursor-pointer h-full w-52 md:w-full`} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={() => {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div className="text-xl">{index + 1} {slide.title}</div>
-                                                    <pre className="text-xs">{JSON.stringify(slide, null, 2)}</pre>
+                                                    {/* <pre className="text-xs">{JSON.stringify(slide, null, 2)}</pre> */}
                                                 </div>
                                                     <div className={`flex flex-row md:flex-col items-center place-content-between md:place-content-start gap-2`}>
-                                                        {/* <div className="text-xs">{index + 1}</div> */}
-                                                        <div><Button ghost onClick={() => {
-                                                            fetch("/api/slides/create", {
-                                                                method: "POST",
-                                                                headers: {
-                                                                    "Authorization": supabase.auth.getSession().access_token,
-                                                                    "Content-Type": "application/json"
-                                                                },
-                                                                body: JSON.stringify({
-                                                                    project_id: projectId,
-                                                                    title: slide.title,
-                                                                    position: slides.length + 1
-                                                                })
-                                                            }).then(_ => mutate(withToken(`/api/projects/${projectId}/slides`)))
-                                                        }}><MdOutlineContentCopy /></Button></div>
+                                                        {/* <div className="text-xs">{index + 1}</div>
                                                         <div><Button ghost onClick={() => {
                                                             setActiveSlide(null)
                                                             fetch(`/api/slides/${slide.id}`, {
@@ -101,11 +87,9 @@ export default function Editor({ projectId }) {
                                                                     "Authorization": session.access_token,
                                                                 }
                                                             }).then(res => res.json()).then((data) => {
-                                                                // alert(JSON.stringify(data))
-                                                                // mutate(withToken(`/api/projects/${projectId}/slides`))
                                                                 mutate(`/api/projects/${projectId}/slides`)
                                                             })
-                                                        }}><MdDeleteOutline /></Button></div>
+                                                        }}>Delete</Button></div> */}
                                                     </div>
                                                 </div>
                                             )}
@@ -145,10 +129,7 @@ export default function Editor({ projectId }) {
             <div className="flex-1">
                 <div className="w-full h-80 rounded-2xl">
                     {!activeSlide && "Select slide from left"}
-                    <div>
-                        {activeSlide && <SlideEditor key={activeSlide.id} slide={activeSlide} />}
-                        {/* {activeSlide && <SlideEditor slide={activeSlide} />} */}
-                    </div>
+                    {activeSlide && <SlideEditor key={activeSlide.id} slide={activeSlide} />}
                 </div>
             </div>
         </div>

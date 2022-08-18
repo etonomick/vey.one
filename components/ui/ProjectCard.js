@@ -9,7 +9,7 @@ export default function ProjectCard({ project }) {
 
     return (
         <div className="bg-white rounded-3xl flex flex-col gap-3 p-5">
-            <div className="flex flex-col flex-1 gap-1">
+            <div className="flex flex-col flex-1 gap-1 border-b pb-3">
                 <Link href={`/dashboard/${project.id}`}><Heading md>{project.title}</Heading></Link>
                 <Text>{project.description}</Text>
             </div>
@@ -18,7 +18,7 @@ export default function ProjectCard({ project }) {
                 <div>{project.slides[0].count} slides</div>
             </div>
             <div className="flex justify-end gap-3">
-            <Button>Delete</Button>
+                <Button>Delete</Button>
                 <Button>Edit</Button>
             </div>
         </div>
