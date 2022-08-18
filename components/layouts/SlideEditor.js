@@ -27,6 +27,8 @@ export default function SlideEditor({ slide }) {
         "Short answer"
     ]
 
+    const layouts = ["Title Slide", "Content", "Two Cols", "Picture with Caption"]
+
     if (error) {
         return (
             <div>Error</div>
@@ -42,11 +44,15 @@ export default function SlideEditor({ slide }) {
     return (
         <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl aspect-4/3">
             <div className={`flex flex-col gap-5`}>
+                
                 <Editable>{data.data.title}</Editable>
+                
+                <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">
                 {data.data.answers.map(answer => (
                     // <Editable key={answer.id} id={answer.id} />
                     <div className="flex flex-row w-full items-center">
-                        <div className="flex-1">{answer.title}</div>
+                        <Editable>{answer.title}</Editable>
+                        {/* <div className="flex-1">{answer.title}</div> */}
                         <div><Button onClick={() => {
                             fetch(`/api/answers/${answer.id}`, {
                                 method: "DELETE",
@@ -60,6 +66,8 @@ export default function SlideEditor({ slide }) {
                         }}>Delete</Button></div>
                     </div>
                 ))}
+                </div>
+
                 <input className="border" type="text" value={newAnswerTitle} onChange={e => {
                     setNewAnswerTitle(e.target.value)
                 }} onKeyDown={(e) => {
@@ -82,7 +90,7 @@ export default function SlideEditor({ slide }) {
                 }} />
             </div>
             <div className="border rounded-2xl p-5">
-                <div>Settings</div>
+                <div>{layouts.map(layout => (<div>{layout}</div>))}</div>
             </div>
         </div>
     )

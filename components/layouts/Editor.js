@@ -76,8 +76,8 @@ export default function Editor({ projectId }) {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div>{index + 1}</div>
-                                                    <div className="text-xl">
-                                                        <Heading sm>{slide.title}</Heading>
+                                                    <div className="text-xl truncate">
+                                                        <div>{slide.title}</div>
                                                     </div>
                                                     <div>{slide.answers[0].count} answers</div>
                                                     {/* <pre className="text-xs">{JSON.stringify(slide, null, 2)}</pre> */}

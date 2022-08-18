@@ -8,7 +8,7 @@ export default function ProjectCard({ project }) {
     const date = new Date(project.created_at)
 
     return (
-        <div className="bg-white rounded-3xl flex flex-col gap-3 p-5">
+        <div className="bg-white rounded-3xl flex flex-col gap-3 p-5 border border-neutral-200">
             <div className="flex flex-col flex-1 gap-1 border-b pb-3">
                 <Link href={`/dashboard/${project.id}`}><Heading md>{project.title}</Heading></Link>
                 <Text>{project.description}</Text>
