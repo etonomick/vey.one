@@ -132,7 +132,7 @@ export default function Editor({ projectId }) {
                 </div>
             </div>
             <div className="flex-1">
-                <div className="w-full h-80 rounded-2xl sticky top-24">
+                <div className="w-full h-80 rounded-2xl"> {/* sticky top-24 */}
                     {!activeSlide && "Select slide from left"}
                     {activeSlide && <SlideEditor key={activeSlide.id} slide={activeSlide} />}
                 </div>

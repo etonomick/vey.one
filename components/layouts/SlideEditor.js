@@ -42,30 +42,29 @@ export default function SlideEditor({ slide }) {
     }
 
     return (
-        <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl aspect-4/3">
+        <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl aspect-4/3 overflow-y-auto">
             <div className={`flex flex-col gap-5`}>
-                
+
                 <Editable>{data.data.title}</Editable>
-                
+
                 <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">
-                {data.data.answers.map(answer => (
-                    // <Editable key={answer.id} id={answer.id} />
-                    <div className="flex flex-row w-full items-center">
-                        <Editable>{answer.title}</Editable>
-                        {/* <div className="flex-1">{answer.title}</div> */}
-                        <div><Button onClick={() => {
-                            fetch(`/api/answers/${answer.id}`, {
-                                method: "DELETE",
-                                headers: {
-                                    "Authorization": supabase.auth.getSession().access_token,
-                                    "Content-Type": "application/json"
-                                }
-                            }).then(res => res.json()).then((data) => {
-                                mutate(`/api/slides/${id}`)
-                            })
-                        }}>Delete</Button></div>
-                    </div>
-                ))}
+                    {data.data.answers.map(answer => (
+                        <div className="flex flex-row w-full items-center">
+                            <Editable>{answer.title}</Editable>
+                            <div><Button onClick={() => {
+                                fetch(`/api/answers/${answer.id}`, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "Authorization": supabase.auth.getSession().access_token,
+                                        "Content-Type": "application/json"
+                                    }
+                                }).then(res => res.json()).then((data) => {
+                                    mutate(`/api/slides/${id}`)
+                                })
+                            }}>Delete</Button></div>
+                        </div>
+                    ))}
+                    <Editable></Editable>
                 </div>
 
                 <input className="border" type="text" value={newAnswerTitle} onChange={e => {
@@ -89,8 +88,10 @@ export default function SlideEditor({ slide }) {
                     }
                 }} />
             </div>
-            <div className="border rounded-2xl p-5">
-                <div>{layouts.map(layout => (<div>{layout}</div>))}</div>
+            <div className="border border-neutral-300 rounded-3xl divide-y p-8 absolute top-3 right-3 flex flex-col">
+                {layouts.map((layout, index) => (
+                    <div>{index}</div>
+                ))}
             </div>
         </div>
     )

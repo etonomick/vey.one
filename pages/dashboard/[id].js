@@ -19,7 +19,7 @@ export default function Project() {
     const router = useRouter()
     const { id } = router.query
 
-    const { data, error } = useSWR(`/api/projects/${id}`, fetcher) // useSWR(withToken(`/api/projects/${id}`), fetcher)
+    const { data, error } = useSWR(`/api/projects/${id}`, fetcher)
 
     if (error) {
         return (
@@ -62,7 +62,7 @@ export default function Project() {
             <Tab.Group>
                 <Tab.List className="flex space-x-5 overflow-x-scroll">
                     {tabs.map(({ title, count }) => (
-                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 relative rounded-2xl ${selected ? "bg-neutral-800 text-white" : "bg-transparent"} appearance-none focus:outline-none flex-nowrap ring-0`}>{title} {count && <div className="text-neutral-500">{count}</div>}</Tab>
+                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 relative rounded-2xl ${selected ? "bg-neutral-800 text-white" : "bg-transparent"} appearance-none focus:outline-none flex-nowrap ring-0`}><span className="font-bold">{title}</span> {count && <div className="text-neutral-500">{count}</div>}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>

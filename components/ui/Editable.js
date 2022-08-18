@@ -13,9 +13,13 @@ export default function Editable({ id, children }) {
     }, [edited])
 
     return (
-        <div className="inline-flex text-4xl">
-            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full z-10">{children}</div>
-            {!edited && <div className="absolute select-none text-neutral-200">Untitled</div>}
+        <div className="inline-flex text-4xl relative">
+            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full z-10" onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    // update
+                }
+            }}>{children}</div>
+            {!edited && <div className="absolute top-0 select-none text-neutral-200">Untitled</div>}
         </div>
     )
 }
