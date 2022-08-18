@@ -35,8 +35,9 @@ export default function Project() {
 
     const tabs = [
         {
-            title: `Editor ${data.slides[0].count}`,
-            view: <Editor projectId={id} />
+            title: `Editor`,
+            view: <Editor projectId={id} />,
+            count: data.slides[0].count
         },
         {
             title: "Preferences",
@@ -61,8 +62,8 @@ export default function Project() {
 
             <Tab.Group>
                 <Tab.List className="flex space-x-5 overflow-x-scroll">
-                    {tabs.map(({title}) => (
-                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 rounded-full ${selected ? "bg-black text-white" : "bg-transparent hover:bg-white/30"} appearance-none focus:outline-none`}><MdOutlineFolder /> {title}</Tab>
+                    {tabs.map(({title, count}) => (
+                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 font-bold relative rounded-full ${selected ? "bg-black text-white" : "bg-transparent hover:bg-white/30"} appearance-none focus:outline-none flex-nowrap`}>{title} {count && <div className="fixed -top-3 -right-3 bg-red-500 h-5 w-5 rounded-full z-50">{count}</div>}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>

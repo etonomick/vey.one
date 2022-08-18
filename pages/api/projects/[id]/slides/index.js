@@ -5,7 +5,7 @@ async function hander(req, res) {
 
     const { id } = req.query
 
-    const { data, error } = await supabase.from("slides").select("*").eq("project_id", id).order("position")
+    const { data, error } = await supabase.from("slides").select(`*, answers(count)`).eq("project_id", id).order("position")
     
     res.status(200).json({
         data,

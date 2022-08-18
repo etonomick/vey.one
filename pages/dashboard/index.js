@@ -3,6 +3,7 @@ import Button from "../../components/ui/Button"
 import Heading from "../../components/ui/Heading"
 import Input from "../../components/ui/Input"
 import ProjectCard from "../../components/ui/ProjectCard"
+import { useAppContext } from "../../context/state"
 import fetcher from "../../utils/fetcher"
 import { supabase } from "../../utils/supabaseClient"
 import withToken from "../../utils/withToken"
@@ -10,6 +11,7 @@ import withToken from "../../utils/withToken"
 export default function Projects() {
 
     const { data, error } = useSWR("/api/projects", fetcher)
+    const { session } = useAppContext()
 
     if (error) {
         return (
@@ -44,7 +46,7 @@ export default function Projects() {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                "Authorization": await supabase.auth.getSession().access_token
+                                "Authorization": session.access_token
                             },
                             body: JSON.stringify({
                                 title: "api test",

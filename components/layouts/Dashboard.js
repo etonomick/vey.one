@@ -33,9 +33,9 @@ export default function Dashboard({ children }) {
             <div className="flex flex-row items-center place-content-between p-5 sticky top-0 bg-orange-50/30 backdrop-blur-md">
                 <div><Link href="/dashboard"><Vey /></Link></div>
                 <div className="flex flex-row items-center gap-3">
-                    {/* <div>
-                        <Link href="/dashboard/profile">{supabase.auth.getUser().email}</Link>
-                    </div> */}
+                    <div>
+                        <Link href="/dashboard/profile">{session.user.email}</Link>
+                    </div>
                     <Button onClick={() => {
                         supabase.auth.signOut()
                     }}>Sign Out</Button>
