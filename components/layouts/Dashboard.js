@@ -10,7 +10,7 @@ export default function Dashboard({ children }) {
 
     const [loading, setLoading] = useState(true)
     
-    const {session} = useAppContext()
+    const { session } = useAppContext()
 
     useEffect(() => {
         setLoading(false)

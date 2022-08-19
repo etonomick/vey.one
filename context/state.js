@@ -6,7 +6,6 @@ const Context = createContext()
 export function Wrapper({ children }) {
 
     const [session, setSession] = useState(null)
-
     async function getSession() {
         const { data: { session }, error } = await supabase.auth.getSession()
         setSession(session)

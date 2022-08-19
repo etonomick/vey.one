@@ -76,7 +76,7 @@ export default function Editor({ projectId }) {
                                                     setActiveSlide(slide)
                                                 }}>
                                                     <div>{index + 1}</div>
-                                                    <div className="text-xl truncate">
+                                                    <div className="text-xl">
                                                         <div>{slide.title}</div>
                                                     </div>
                                                     <div>{slide.answers[0].count} answers</div>

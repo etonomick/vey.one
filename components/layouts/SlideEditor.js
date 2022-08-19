@@ -15,7 +15,7 @@ export default function SlideEditor({ slide }) {
         return <>empty state</>
     }
 
-    const { session } = useAppContext()
+    const { session, setLoading } = useAppContext()
 
     const { id } = slide
 
@@ -49,15 +49,15 @@ export default function SlideEditor({ slide }) {
             <div className={`flex flex-col gap-5`}>
                 <Editable onEnter={value => {
                     fetch(`/api/slides/${id}`, {
-                        method: "UPDATE",
+                        method: "PATCH",
                         headers: {
                             "Authorization": session.access_token,
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            title: value
+                            title: `${value}`
                         })
-                    }).then(res => res.text()).then(data => alert(JSON.stringify(data)))
+                    }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
                 }} placeholder="Slide title">{data.data.title}</Editable>
 
                 <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">
@@ -70,7 +70,7 @@ export default function SlideEditor({ slide }) {
                                 fetch(`/api/answers/${answer.id}`, {
                                     method: "DELETE",
                                     headers: {
-                                        "Authorization": supabase.auth.getSession().access_token,
+                                        "Authorization": session.access_token,
                                         "Content-Type": "application/json"
                                     }
                                 }).then(res => res.json()).then((data) => {
