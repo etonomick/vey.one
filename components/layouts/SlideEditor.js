@@ -47,9 +47,17 @@ export default function SlideEditor({ slide }) {
     return (
         <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl aspect-4/3 overflow-y-auto">
             <div className={`flex flex-col gap-5`}>
-
                 <Editable onEnter={value => {
-                    alert(value)
+                    fetch(`/api/slides/${id}`, {
+                        method: "UPDATE",
+                        headers: {
+                            "Authorization": session.access_token,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            title: value
+                        })
+                    }).then(res => res.text()).then(data => alert(JSON.stringify(data)))
                 }} placeholder="Slide title">{data.data.title}</Editable>
 
                 <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">

@@ -23,7 +23,7 @@ async function handler(req, res) {
     }
 
     if (req.method === "UPDATE") {
-        const { data, error } = await supabase.from("slides").upsert(req.body).eq("id", id)
+        const { data, error } = await supabase.from("slides").upsert(req.body).eq("id", id).select()
         res.status(200).json({
             data,
             error
