@@ -9,6 +9,7 @@ import SlideEditor from "./SlideEditor";
 import { MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md"
 import { useAppContext } from "../../context/state";
 import Heading from "../ui/Heading";
+import Editable from "../ui/Editable";
 
 
 export default function Editor({ projectId }) {
@@ -61,6 +62,7 @@ export default function Editor({ projectId }) {
         <div className="w-full flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-64 flex flex-col gap-5">
                 {slides.length === 0 && <>You have no slides</>}
+                <Editable placeholder="New slide title" />
                 <DragDropContext onDragEnd={handleSlideDrag}>
                     <Droppable droppableId="slides">
                         {(provided) => (

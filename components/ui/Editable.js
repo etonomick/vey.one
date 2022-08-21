@@ -16,7 +16,7 @@ export default function Editable({ children, onEnter, placeholder = "Placeholder
 
     return (
         <div className="text-4xl relative">
-            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full h-auto relative z-10" onKeyDown={(e) => {
+            <div contentEditable onInput={handleInput} className="appearance-none focus:outline-none break-all w-full h-auto relative z-10 cursor-text caret-neutral-700" onKeyDown={(e) => {
                 if (e.key === "Enter") {
                     e.preventDefault()
                     onEnter && onEnter(edited)
