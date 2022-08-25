@@ -9,7 +9,7 @@ const handler = async (req, res) => {
         user_id: req.user.id,
         title,
         description
-    })
+    }).select().single()
 
     res.status(200).json({
         data,

@@ -60,9 +60,9 @@ export default function Project() {
             <Text>{data.description}</Text>
 
             <Tab.Group>
-                <Tab.List className="flex space-x-5 overflow-x-scroll">
+                <Tab.List className="flex space-x-5 overflow-x-scroll border-b">
                     {tabs.map(({ title, count }) => (
-                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 relative rounded-2xl ${selected ? "bg-neutral-800 text-white" : "bg-transparent"} appearance-none focus:outline-none flex-nowrap ring-0`}><span className="font-bold">{title}</span> {count && <div className="text-neutral-500">{count}</div>}</Tab>
+                        <Tab key={title} className={({ selected }) => `flex items-center justify-center gap-3 py-3 px-5 relative ${selected ? "border-b-2 border-black" : "bg-transparent"} appearance-none focus:outline-none flex-nowrap ring-0`}><span className="font-bold">{title}</span> {count && <div className="text-neutral-500">{count}</div>}</Tab>
                     ))}
                 </Tab.List>
                 <Tab.Panels>

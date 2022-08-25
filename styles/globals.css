@@ -16,9 +16,14 @@
         url("/fonts/Inter-Bold.woff") format("woff");
     }
     @font-face {
-        font-family: "BluuNext";
-        src: url("/fonts/bluunext-bold-webfont.woff2") format("woff2"),
-        url("/fonts/bluunext-bold.webfont.woff") format("woff");
+        font-family: "Vollkorn";
+        font-weight: 400;
+        src: url("/fonts/Vollkorn-Regular.ttf");
+    }
+    @font-face {
+        font-family: "Vollkorn";
+        font-weight: 700;
+        src: url("/fonts/Vollkorn-Bold.ttf");
     }
 }
 

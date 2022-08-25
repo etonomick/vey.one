@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'sans': ['Inter'],
-      'serif': ['BluuNext'],
+      'serif': ['Vollkorn'],
     },
     extend: {
       aspectRatio: {

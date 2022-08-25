@@ -45,8 +45,9 @@ export default function SlideEditor({ slide }) {
     }
 
     return (
-        <div className="flex flex-col gap-5 bg-white p-8 rounded-3xl aspect-4/3 overflow-y-auto">
-            <div className={`flex flex-col gap-5`}>
+        <div className="flex flex-col gap-5 bg-white p-8">
+            
+                <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">
                 <Editable onEnter={value => {
                     fetch(`/api/slides/${id}`, {
                         method: "PATCH",
@@ -59,8 +60,6 @@ export default function SlideEditor({ slide }) {
                         })
                     }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
                 }} placeholder="Slide title">{data.data.title}</Editable>
-
-                <div className="flex flex-col gap-3 border border-neutral-700 p-8 rounded-3xl">
                     {data.data.answers.map(answer => (
                         <div className="flex flex-row items-center">
                             <div className="flex-1">
@@ -96,7 +95,7 @@ export default function SlideEditor({ slide }) {
                         })
                     }} placeholder="New answer title"></Editable>
                 </div>
-            </div>
+            
         </div>
     )
 }

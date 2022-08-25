@@ -1,3 +1,5 @@
+import { useRouter } from "next/router"
+import { useState } from "react"
 import useSWR from "swr"
 import Button from "../../components/ui/Button"
 import Heading from "../../components/ui/Heading"
@@ -12,6 +14,12 @@ export default function Projects() {
 
     const { data, error } = useSWR("/api/projects", fetcher)
     const { session } = useAppContext()
+    const router = useRouter()
+
+    const [newProject, setNewProject] = useState({
+        title: "",
+        description: ""
+    })
 
     if (error) {
         return (
@@ -24,7 +32,6 @@ export default function Projects() {
     if (!data) {
         return (
             <div>
-                {/* {JSON.stringify(session)} */}
                 Loading projects...
             </div>
         )
@@ -37,10 +44,14 @@ export default function Projects() {
                 {data && data.data.map(project => (
                     <ProjectCard project={project} />
                 ))}
-                {/* <ProjectCard /> */}
                 <div className="p-5 border border-dashed flex items-start flex-col gap-3">
-                    <Input placeholder="Project Name" />
-                    <Input placeholder="Short description" sm />
+                    <pre>{JSON.stringify(newProject)}</pre>
+                    <Input placeholder="Project Name" onChange={e => {
+                        setNewProject({ ...newProject, ["title"]: e.target.value })
+                    }} />
+                    <Input placeholder="Short description" sm onChange={e => {
+                        setNewProject({ ...newProject, ["description"]: e.target.value })
+                    }} />
                     <Button onClick={async () => {
                         fetch("/api/projects/create", {
                             method: "POST",
@@ -49,10 +60,12 @@ export default function Projects() {
                                 "Authorization": session.access_token
                             },
                             body: JSON.stringify({
-                                title: "api test",
-                                description: ""
+                                title: newProject.title,
+                                description: newProject.description
                             })
-                        }).then(res => res.json()).then(data => alert(JSON.stringify(data)))
+                        }).then(res => res.json()).then(data => {
+                            router.push(`/dashboard/${data.data["id"]}`)
+                        })
                     }}>Create</Button>
                 </div>
             </div>
